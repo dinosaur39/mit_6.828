@@ -25,14 +25,14 @@ main(int argc, char *argv[])
   if (pid == 0) {//child process
     sleep(10);
     read(fstp[0], &c, 1);
-    printf("%d: received ping %c\n", getpid(), c);
+    printf("%d: received ping\n", getpid());
     write(sndp[1], &c, 1);
     exit(0);
   } else {
     write(fstp[1], &sendchar, 1);
     sleep(20);
     read(sndp[0], &c, 1);
-    printf("%d: received pong %c\n", getpid(), c);
+    printf("%d: received pong\n", getpid());
     exit(0);
   }
 
