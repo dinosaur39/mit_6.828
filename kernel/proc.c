@@ -168,6 +168,7 @@ freeproc(struct proc *p)
   p->chan = 0;
   p->killed = 0;
   p->xstate = 0;
+  p->trace = 0;
   p->state = UNUSED;
 }
 
@@ -301,6 +302,9 @@ fork(void)
 
   // Cause fork to return 0 in the child.
   np->trapframe->a0 = 0;
+
+  // Copy the trace mask from parent to child
+  np->trace = p->trace;
 
   // increment reference counts on open file descriptors.
   for(i = 0; i < NOFILE; i++)
